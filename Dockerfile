@@ -1,3 +1,53 @@
+# Base image
+FROM python:3.10 as build
+
+# Set the working directory
+WORKDIR /micro-app
+
+COPY . /micro-app
+# Copy the requirements file
+COPY requirements.txt req.txt
+
+# Install dependencies
+RUN pip3 install --no-cache-dir -r req.txt
+
+
+FROM python:3.10-slim
+
+WORKDIR /micro-run
+
+# Copy the app files
+COPY --from=build /micro-app /micro-run/
+#COPY ./post_app/app1.py ./post_app/app1.py
+
+EXPOSE 8080
+# Expose the port for the Streamlit app1
+EXPOSE 7000
+
+# Run the app
+CMD ["./shells/demo.sh"]
+
+
+
+
+
+# My Docker
+
+#FROM python:3.10 AS build
+#WORKDIR /pyapp
+#COPY requirements.txt .
+#RUN pip install -r requirements.txt
+#FROM python:3.10-slim
+#WORKDIR /pyapp
+#COPY requirements.txt .
+#RUN pip install -r requirements.txt
+## COPY --from=build /usr/lib/python3.8/ /usr/lib/python3.8/
+#COPY --from=build /pyapp /pyapp/
+#COPY . .
+#EXPOSE 8000
+#CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+
 #FROM python:3.10 AS build
 #
 #WORKDIR /pyapp
@@ -19,23 +69,3 @@
 #CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 
-## Base image
-#FROM python:3.9
-#
-## Set the working directory
-#WORKDIR /app
-#
-## Copy the requirements file
-#COPY requirements.txt .
-#
-## Install dependencies
-#RUN pip install --no-cache-dir -r requirements.txt
-#
-## Copy the app files
-#COPY app1.py .
-#
-## Expose the port for the Streamlit app
-#EXPOSE 7000
-#
-## Run the app
-#CMD ["streamlit", "run", "--server.port", "7000", "app1.py"]
