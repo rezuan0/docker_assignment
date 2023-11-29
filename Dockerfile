@@ -1,33 +1,49 @@
-# Base image
-FROM python:3.10 as build
+# Stage 1: Build stage
+FROM python:3.10 AS builder
 
-# Set the working directory
-WORKDIR /micro-app
+# Set working directory in the container
+WORKDIR /app
 
-# Copy the requirements file
-COPY requirements.txt req.txt
+# Copy only the requirements file to optimize caching
+COPY requirements.txt .
 
 # Install dependencies
-RUN pip3 install --no-cache-dir -r req.txt
+# RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install streamlit==1.24.1 && pip install -r requirements.txt
+# Copy the entire project code to the container
+COPY . .
 
+# Perform any additional build steps if necessary (e.g., compiling assets, etc.)
+# RUN some_build_command
 
+# Stage 2: Final production image
 FROM python:3.10-slim
 
-WORKDIR /micro-app
-COPY . .
-# Copy the app files
-COPY --from=build /micro-app /micro-app/
-#COPY ./post_app/app1.py ./post_app/app1.py
+# Set working directory in the container
+WORKDIR /app
 
-EXPOSE 8080
-# Expose the port for the Streamlit app1
+# Copy the installed dependencies from the builder stage
+COPY --from=builder /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
+COPY --from=builder /app /app
+
+# Set environment variables if needed
+# ENV SOME_ENV_VAR="some_value"
+
+# Expose the port if your application listens on a specific port
 EXPOSE 7000
+EXPOSE 8000
 
 # Run the app
-# CMD ["./shells/demo.sh"]
-#COPY./shells/demo.sh /micro-app
-RUN chmod +x ./shells/demo.sh
-CMD ["./shells/demo.sh"]
+# Copy the shell script into the container
+COPY new.sh /micro-app/new.sh
+
+# Make the shell script executable
+RUN chmod +x /micro-app/new.sh
+
+# Specify the command to run the shell script
+CMD ["/micro-app/new.sh"]
+
+
 
 
 
