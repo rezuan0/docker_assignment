@@ -2,11 +2,12 @@ from flask import Flask, redirect, render_template
 
 app = Flask(__name__)
 
-# For Office pc
-ip = '192.168.1.155'
+# # For Office pc
+# ip = '192.168.1.155'
 
 # For Home Pc
-# ip = '192.168.0.11'
+ip = '192.168.0.11'
+
 
 # Render the homepage with buttons
 @app.route('/')
@@ -37,4 +38,3 @@ if __name__ == '__main__':
     # gunicorn main:app -b 0.0.0.0:8080
     # app.run(port=8080)
     app.run(host='0.0.0.0', port=8080)
-

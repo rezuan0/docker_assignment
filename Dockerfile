@@ -8,41 +8,47 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install dependencies
-# RUN pip install --upgrade pip && pip install -r requirements.txt
-RUN pip install --upgrade pip && pip install streamlit==1.24.1 && pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
 # Copy the entire project code to the container
 COPY . .
 
-# Perform any additional build steps if necessary (e.g., compiling assets, etc.)
-# RUN some_build_command
 
 # Stage 2: Final production image
 FROM python:3.10-slim
 
 # Set working directory in the container
 WORKDIR /app
+RUN pip install streamlit==1.24.1
 
 # Copy the installed dependencies from the builder stage
 COPY --from=builder /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
 COPY --from=builder /app /app
 
-# Set environment variables if needed
-# ENV SOME_ENV_VAR="some_value"
-
 # Expose the port if your application listens on a specific port
 EXPOSE 7000
 EXPOSE 8000
+EXPOSE 9000
 
-# Run the app
+EXPOSE 8080
+EXPOSE 30110
+EXPOSE 30120
+EXPOSE 30130
+
 # Copy the shell script into the container
-COPY new.sh /micro-app/new.sh
+COPY run.sh /micro-app/run.sh
+COPY main.sh /micro-app/main.sh
+COPY app1.sh /micro-app/app1.sh
+COPY app2.sh /micro-app/app2.sh
+COPY app3.sh /micro-app/app3.sh
 
 # Make the shell script executable
-RUN chmod +x /micro-app/new.sh
+RUN chmod +x /micro-app/run.sh /micro-app/main.sh /micro-app/app1.sh /micro-app/app2.sh /micro-app/app3.sh
+
 
 # Specify the command to run the shell script
-CMD ["/micro-app/new.sh"]
-
+# CMD ["/micro-app/main.sh","/micro-app/app1.sh","/micro-app/app2.sh","/micro-app/app3.sh"]
+CMD ["/bin/bash", "/micro-app/run.sh"]
 
 
 
