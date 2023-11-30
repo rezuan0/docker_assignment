@@ -1,94 +1,144 @@
 # Stage 1: Build stage
-FROM python:3.10 AS builder
-
+FROM python:3.10 AS base
 # Set working directory in the container
 WORKDIR /app
-
 # Copy only the requirements file to optimize caching
 COPY requirements.txt .
-
 # Install dependencies
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
+RUN pip3 install --upgrade pip # && pip3 install streamlit==1.24.1
 # Copy the entire project code to the container
 COPY . .
 
 
-# Stage 2: Final production image
+# Final production image For main
 FROM python:3.10-slim
 
 # Set working directory in the container
 WORKDIR /app
-RUN pip install streamlit==1.24.1
-
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+RUN pip3 install uvicorn
 # Copy the installed dependencies from the builder stage
-COPY --from=builder /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
-COPY --from=builder /app /app
-
+COPY --from=base /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
+COPY --from=base /app /app
 # Expose the port if your application listens on a specific port
-EXPOSE 7000
-EXPOSE 8000
-EXPOSE 9000
-
 EXPOSE 8080
-EXPOSE 30110
-EXPOSE 30120
-EXPOSE 30130
-
-# Copy the shell script into the container
-COPY run.sh /micro-app/run.sh
-COPY main.sh /micro-app/main.sh
-COPY app1.sh /micro-app/app1.sh
-COPY app2.sh /micro-app/app2.sh
-COPY app3.sh /micro-app/app3.sh
-
-# Make the shell script executable
-RUN chmod +x /micro-app/run.sh /micro-app/main.sh /micro-app/app1.sh /micro-app/app2.sh /micro-app/app3.sh
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Done
 
 
-# Specify the command to run the shell script
-# CMD ["/micro-app/main.sh","/micro-app/app1.sh","/micro-app/app2.sh","/micro-app/app3.sh"]
-CMD ["/bin/bash", "/micro-app/run.sh"]
-
-
-
-
-
-# My Docker
-
-#FROM python:3.10 AS build
-#WORKDIR /pyapp
-#COPY requirements.txt .
-#RUN pip install -r requirements.txt
-#FROM python:3.10-slim
-#WORKDIR /pyapp
-#COPY requirements.txt .
-#RUN pip install -r requirements.txt
-## COPY --from=build /usr/lib/python3.8/ /usr/lib/python3.8/
-#COPY --from=build /pyapp /pyapp/
-#COPY . .
+## Final production image For app1
+#FROM base AS post_app
+## Set working directory in the container
+#WORKDIR /app/post_app
+#COPY post_app /app/post_app
+#RUN pip install streamlit==1.24.1
+## Expose the port if your application listens on a specific port
+#EXPOSE 7000
+##CMD ["streamlit", "run", "app1.py"]
+#CMD ["streamlit", "run", "--server.port", "7000", "app1.py"]
+## Done
+#
+#
+## Final production image For app2
+#FROM base AS music_app
+## Set working directory in the container
+#WORKDIR /app/music_app
+#COPY music_app /app/music_app
+#RUN pip install streamlit==1.24.1
+## Expose the port if your application listens on a specific port
 #EXPOSE 8000
-#CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+##CMD ["streamlit", "run", "app1.py"]
+#CMD ["streamlit", "run", "--server.port", "8000", "app2.py"]
+## #Done
+#
+#
+#
+## Final production image For app3
+#FROM base AS document_app
+## Set working directory in the container
+#WORKDIR /app/document_app
+#COPY document_app /app/document_app
+#RUN pip install streamlit==1.24.1
+## Expose the port if your application listens on a specific port
+#EXPOSE 9000
+##CMD ["streamlit", "run", "app1.py"]
+#CMD ["streamlit", "run", "--server.port", "9000", "app3.py"]
+## #Done
+#
+#
 
 
-#FROM python:3.10 AS build
+
+
+
+
+
+## Stage 1: Build stage
+#FROM python:3.10 AS builder
 #
-#WORKDIR /pyapp
+## Set working directory in the container
+#WORKDIR /app
 #
-#COPY requirements.txt req.txt
+## Copy only the requirements file to optimize caching
+#COPY requirements.txt .
 #
-#RUN pip install -r req.txt
+## Install dependencies
+#RUN pip install --upgrade pip && pip install -r requirements.txt
 #
-#FROM python:3.10-slim
-#
-#WORKDIR /pyapp
-#
-#COPY --from=build /root/.local /root/.local
-#
+## Copy the entire project code to the container
 #COPY . .
 #
-#EXPOSE 8000
 #
-#CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+## Stage 2: Final production image
+#FROM python:3.10-slim
+#
+## Set working directory in the container
+#WORKDIR /app
+#RUN pip install streamlit==1.24.1
+#
+## Copy the installed dependencies from the builder stage
+#COPY --from=builder /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
+#COPY --from=builder /app /app
+#
+## Expose the port if your application listens on a specific port
+#EXPOSE 7000
+#EXPOSE 8000
+#EXPOSE 9000
+#
+#EXPOSE 8080
+#EXPOSE 30110
+#EXPOSE 30120
+#EXPOSE 30130
+#
+## Copy the shell script into the container
+## COPY run.sh /micro-app/run.sh
+## COPY main.sh /micro-app/main.sh
+## COPY app1.sh /micro-app/app1.sh
+## COPY app2.sh /micro-app/app2.sh
+## COPY app3.sh /micro-app/app3.sh
+#
+#
+## Copy the shell script into the container
+#COPY run.sh /micro-app/run.sh
+#COPY main.py /micro-app/main.py
+#COPY app1.py /micro-app/app1.py
+#COPY app2.py /micro-app/app2.py
+#COPY app3.py /micro-app/app3.py
+#
+#
+## Make the shell script executable
+## RUN chmod +x /micro-app/run.sh /micro-app/main.sh /micro-app/app1.sh /micro-app/app2.sh /micro-app/app3.sh
+#
+#
+## Specify the command to run the shell script
+## CMD ["/micro-app/main.sh","/micro-app/app1.sh","/micro-app/app2.sh","/micro-app/app3.sh"]
+#CMD ["/bin/bash", "/micro-app/run.sh", "&"]
+#
+##CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+##CMD ["streamlit", "run", "--server.port", "7000", "app1.py"]
+##CMD ["streamlit", "run", "--server.port", "8000", "app2.py"]
+##CMD ["streamlit", "run", "--server.port", "9000", "app3.py"]
+
 
 

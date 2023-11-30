@@ -3,23 +3,23 @@ import mysql.connector
 from PIL import Image
 from io import BytesIO
 
-# Database connection details /home Pc
-db_connection = {
-    "host": "192.168.0.11",
-    "port": 3306,
-    "user": "rezu",
-    "password": "rezuan00",
-    "database": "collection",
-}
-
-# # Database connection details /Office Pc
+# # Database connection details /home Pc
 # db_connection = {
-#     "host": "192.168.1.155",
+#     "host": "192.168.0.11",
 #     "port": 3306,
 #     "user": "rezu",
 #     "password": "rezuan00",
 #     "database": "collection",
 # }
+
+# Database connection details /Office Pc
+db_connection = {
+    "host": "192.168.1.155",
+    "port": 3306,
+    "user": "rezu",
+    "password": "rezuan00",
+    "database": "collection",
+}
 
 
 # Function to establish a database connection
