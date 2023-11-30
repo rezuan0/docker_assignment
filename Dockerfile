@@ -1,13 +1,16 @@
 # Stage 1: Build stage
-FROM python:3.10 AS base
-# Set working directory in the container
+FROM python:3.10 AS builder
 WORKDIR /app
 # Copy only the requirements file to optimize caching
 COPY requirements.txt .
 # Install dependencies
-RUN pip3 install --upgrade pip # && pip3 install streamlit==1.24.1
+RUN pip install --upgrade pip
+RUN pip3 install -r requirements.txt
+RUN apt update -y
+
 # Copy the entire project code to the container
-COPY . .
+Copy templates templates
+COPY main.py  .
 
 
 # Final production image For main
@@ -15,63 +18,18 @@ FROM python:3.10-slim
 
 # Set working directory in the container
 WORKDIR /app
-COPY requirements.txt .
-RUN pip3 install -r requirements.txt
-RUN pip3 install uvicorn
+RUN apt update -y
+RUN apt install uvicorn -y
+
 # Copy the installed dependencies from the builder stage
-COPY --from=base /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
-COPY --from=base /app /app
+COPY --from=builder /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
+COPY --from=builder /app /app
 # Expose the port if your application listens on a specific port
 EXPOSE 8080
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["python3","main.py"]
+
 # Done
-
-
-## Final production image For app1
-#FROM base AS post_app
-## Set working directory in the container
-#WORKDIR /app/post_app
-#COPY post_app /app/post_app
-#RUN pip install streamlit==1.24.1
-## Expose the port if your application listens on a specific port
-#EXPOSE 7000
-##CMD ["streamlit", "run", "app1.py"]
-#CMD ["streamlit", "run", "--server.port", "7000", "app1.py"]
-## Done
-#
-#
-## Final production image For app2
-#FROM base AS music_app
-## Set working directory in the container
-#WORKDIR /app/music_app
-#COPY music_app /app/music_app
-#RUN pip install streamlit==1.24.1
-## Expose the port if your application listens on a specific port
-#EXPOSE 8000
-##CMD ["streamlit", "run", "app1.py"]
-#CMD ["streamlit", "run", "--server.port", "8000", "app2.py"]
-## #Done
-#
-#
-#
-## Final production image For app3
-#FROM base AS document_app
-## Set working directory in the container
-#WORKDIR /app/document_app
-#COPY document_app /app/document_app
-#RUN pip install streamlit==1.24.1
-## Expose the port if your application listens on a specific port
-#EXPOSE 9000
-##CMD ["streamlit", "run", "app1.py"]
-#CMD ["streamlit", "run", "--server.port", "9000", "app3.py"]
-## #Done
-#
-#
-
-
-
-
-
 
 
 ## Stage 1: Build stage

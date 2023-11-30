@@ -2,23 +2,23 @@ import streamlit as st
 import mysql.connector
 import random
 
-# # Database connection details
-# db_connection = {
-#     "host": "192.168.0.11",
-#     "port": 3306,
-#     "user": "rezu",
-#     "password": "rezuan00",
-#     "database": "collection",
-# }
-
-# Database connection details /Office Pc
+# # Database connection details / For home
 db_connection = {
-    "host": "192.168.1.155",
+    "host": "192.168.0.11",
     "port": 3306,
     "user": "rezu",
     "password": "rezuan00",
     "database": "collection",
 }
+
+# Database connection details /Office Pc
+# db_connection = {
+#     "host": "192.168.1.155",
+#     "port": 3306,
+#     "user": "rezu",
+#     "password": "rezuan00",
+#     "database": "collection",
+# }
 
 
 # Function to establish a database connection
