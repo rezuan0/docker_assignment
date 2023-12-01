@@ -2,7 +2,7 @@
 FROM python:3.9
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /app1
 
 # Copy the requirements file
 COPY requirements.txt .
@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the app files
-COPY app2.py .
+COPY app1.py .
 
 # Expose the port for the Streamlit app
 EXPOSE 7000

@@ -4,18 +4,33 @@ networks:
         driver: bridge
 
 services:
-    py-app:
-        image: "nahiyanswe/python-fast-app:v2"
+    main-app:
+        image: "main-app:v1"
         env_file:
             - $PWD/.env
-        container_name: py-app
+        container_name: main-run
         restart: always
         ports:
-            - "${APP_PORT}:8000"
-        command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+            - "${MAIN_PORT}:8080"
+        command: ["python3", "main.py"]
+        volumes:
+#            - $PWD/database.py:/pyapp/database.py
+            - $PWD/main.py:/pyapp/main.py
+        networks:
+            - server-bridge
+
+    micro-app1:
+        image: "app1:v1"
+        env_file:
+            - $PWD/.env
+        container_name: app1-test
+        restart: always
+        ports:
+            - "${APP1_PORT}:7000"
+        command: ["streamlit", "run", "--server.port", "7000", "app1.py"]
         volumes:
             - $PWD/database.py:/pyapp/database.py
-            - $PWD/main.py:/pyapp/main.py
+            - $PWD/post_app/app1.py:/pyapp/post_app/app1.py
         networks:
             - server-bridge
 

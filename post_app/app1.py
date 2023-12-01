@@ -5,12 +5,22 @@ from io import BytesIO
 
 # # Database connection details /home Pc
 db_connection = {
-    "host": "192.168.0.11",
+    "host": "DB_HOST",
     "port": 3306,
-    "user": "rezu",
-    "password": "rezuan00",
-    "database": "collection",
+    "user": "DB_USER",
+    "password": "DB_PASSWORD",
+    "database": "DB_NAME",
 }
+
+
+# # Database connection details /home Pc
+# db_connection = {
+#     "host": "192.168.0.11",
+#     "port": 3306,
+#     "user": "rezu",
+#     "password": "rezuan00",
+#     "database": "collection",
+# }
 
 # Database connection details /Office Pc
 # db_connection = {
