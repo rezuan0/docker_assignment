@@ -1,15 +1,17 @@
+import os
+
 import streamlit as st
 import mysql.connector
 from PIL import Image
 from io import BytesIO
 
-# # Database connection details /home Pc
+# # Database connection details
 db_connection = {
-    "host": "DB_HOST",
-    "port": 3306,
-    "user": "DB_USER",
-    "password": "DB_PASSWORD",
-    "database": "DB_NAME",
+    "host": os.getenv("DB_HOST"),
+    "port": int(os.getenv("DB_PORT")),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "database": os.getenv("DB_NAME"),
 }
 
 

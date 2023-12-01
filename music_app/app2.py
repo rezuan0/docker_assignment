@@ -4,15 +4,14 @@ import os
 from pydub import AudioSegment
 from pydub.playback import play
 
-# Database connection details /For home
+# # Database connection details
 db_connection = {
-    "host": "192.168.0.11",
-    "port": 3306,
-    "user": "rezu",
-    "password": "rezuan00",
-    "database": "collection",
+    "host": os.getenv("DB_HOST"),
+    "port": int(os.getenv("DB_PORT")),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "database": os.getenv("DB_NAME"),
 }
-
 
 # Database connection details /Office Pc
 # db_connection = {

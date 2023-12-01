@@ -14,16 +14,16 @@ services:
             - "${MAIN_PORT}:8080"
         command: ["python3", "main.py"]
         volumes:
-#            - $PWD/database.py:/pyapp/database.py
             - $PWD/main.py:/pyapp/main.py
+            - $PWD/templates:/pyapp/templates
         networks:
             - server-bridge
 
-    micro-app1:
+    post-app1:
         image: "app1:v1"
         env_file:
             - $PWD/.env
-        container_name: app1-test
+        container_name: app1-run
         restart: always
         ports:
             - "${APP1_PORT}:7000"
@@ -48,6 +48,6 @@ services:
         volumes:
             - "$PWD/mysql/db:/var/lib/mysql"
             - "$PWD/mysql/log:/var/log/mysql"
-            - "$PWD/movies.sql:/docker-entrypoint-initdb.d/movies.sql"
+            - "$PWD/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
         networks:
             - server-bridge
