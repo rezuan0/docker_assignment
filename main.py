@@ -3,12 +3,6 @@ from flask import Flask, redirect, render_template
 app = Flask(__name__)
 
 
-# For Office pc
-# ip = '192.168.1.155'
-
-# # For Home Pc
-# ip = '192.168.0.11'
-
 # Render the homepage with buttons
 @app.route('/')
 def index():
@@ -37,4 +31,4 @@ if __name__ == '__main__':
     # If running with Gunicorn, you can start the app using Gunicorn like this:
     # gunicorn main:app -b 0.0.0.0:8080
     # app.run(port=8080)
-    app.run(host='0.0.0.0', port=int('MAIN_PORT'))
+    app.run(host='0.0.0.0', port=8080)

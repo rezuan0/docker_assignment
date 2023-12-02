@@ -15,25 +15,6 @@ db_connection = {
 }
 
 
-# # Database connection details /home Pc
-# db_connection = {
-#     "host": "192.168.0.11",
-#     "port": 3306,
-#     "user": "rezu",
-#     "password": "rezuan00",
-#     "database": "collection",
-# }
-
-# Database connection details /Office Pc
-# db_connection = {
-#     "host": "192.168.1.155",
-#     "port": 3306,
-#     "user": "rezu",
-#     "password": "rezuan00",
-#     "database": "collection",
-# }
-
-
 # Function to establish a database connection
 def get_db_connection():
     conn = mysql.connector.connect(**db_connection)
