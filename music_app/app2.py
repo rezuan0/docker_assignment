@@ -13,15 +13,6 @@ db_connection = {
     "database": os.getenv("DB_NAME"),
 }
 
-# Database connection details /Office Pc
-# db_connection = {
-#     "host": "192.168.1.155",
-#     "port": 3306,
-#     "user": "rezu",
-#     "password": "rezuan00",
-#     "database": "collection",
-# }
-
 
 # Function to establish a database connection
 def get_db_connection():
