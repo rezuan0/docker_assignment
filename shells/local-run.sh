@@ -1,5 +1,6 @@
 #!/bin/bash
 
+<<<<<<< HEAD
 
 sudo systemctl start mysql.service
 
@@ -12,4 +13,11 @@ cd post_app
 
 streamlit run app1.py --server.port 7000 &
 
+=======
+cp local_env .env
+
+docker compose down
+
+docker compose up -d
+>>>>>>> origin/main
 

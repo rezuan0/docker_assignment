@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 local-ip = localhost
 
@@ -9,10 +10,19 @@ DB_NAME=collection
 
 MAIN_PORT=8080
 
+=======
+DB_HOST=py-mysql
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=1234
+DB_NAME=collection
+
+>>>>>>> origin/main
 APP1_PORT=7000
 APP2_PORT=8000
 APP3_PORT=9000
 
+<<<<<<< HEAD
 
 
 #; DB_HOST=PY-mysql
@@ -27,3 +37,20 @@ APP3_PORT=9000
 #; APP2_PORT=8000
 #; APP3_PORT=9000
 
+=======
+MAIN_PORT=8080
+
+
+
+#DB_HOST=py-mysql
+#DB_PORT=3306
+#DB_USER=root
+#DB_PASSWORD=1234
+#DB_NAME=collection
+#
+#APP1_PORT=7000
+#APP2_PORT=8000
+#APP3_PORT=9000
+#
+#MAIN_PORT=8080
+>>>>>>> origin/main

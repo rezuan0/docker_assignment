@@ -13,6 +13,7 @@ FROM python:3.10-slim
 # Set working directory in the container
 WORKDIR /app
 RUN apt update -y
+
 # Copy the installed dependencies from the builder stage
 COPY --from=builder /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
 COPY --from=builder /app /app
