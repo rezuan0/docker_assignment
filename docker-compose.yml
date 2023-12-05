@@ -5,7 +5,7 @@ networks:
 
 services:
     main-app:
-        image: "main-app:v1"
+        image: "main-app:v2"
         env_file:
             - $PWD/.env
         container_name: main-run
@@ -20,7 +20,7 @@ services:
             - server-bridge
 
     post-app:
-        image: "app1:v1"
+        image: "app1:v2"
         env_file:
             - $PWD/.env
         container_name: app1-run
@@ -34,34 +34,34 @@ services:
             - server-bridge
 
 
-    music-app:
-        image: "app2:v1"
-        env_file:
-            - $PWD/.env
-        container_name: app2-run
-        restart: always
-        ports:
-            - "${APP2_PORT}:8000"
-        command: [ "streamlit", "run", "--server.port", "8000", "app2.py" ]
-        volumes:
-            - $PWD/music_app/app2.py:/app2/app2.py
-        networks:
-            - server-bridge
-
-
-    document-app:
-        image: "app3:v1"
-        env_file:
-            - $PWD/.env
-        container_name: app3-run
-        restart: always
-        ports:
-            - "${APP2_PORT}:9000"
-        command: [ "streamlit", "run", "--server.port", "9000", "app3.py" ]
-        volumes:
-            - $PWD/document_app/app3.py:/app3/app3.py
-        networks:
-            - server-bridge
+#    music-app:
+#        image: "app2:v2"
+#        env_file:
+#            - $PWD/.env
+#        container_name: app2-run
+#        restart: always
+#        ports:
+#            - "${APP2_PORT}:8000"
+#        command: [ "streamlit", "run", "--server.port", "8000", "app2.py" ]
+#        volumes:
+#            - $PWD/music_app/app2.py:/app2/app2.py
+#        networks:
+#            - server-bridge
+#
+#
+#    document-app:
+#        image: "app3:v2"
+#        env_file:
+#            - $PWD/.env
+#        container_name: app3-run
+#        restart: always
+#        ports:
+#            - "${APP3_PORT}:9000"
+#        command: [ "streamlit", "run", "--server.port", "9000", "app3.py" ]
+#        volumes:
+#            - $PWD/document_app/app3.py:/app3/app3.py
+#        networks:
+#            - server-bridge
 
 
 
