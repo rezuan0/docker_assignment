@@ -4,9 +4,9 @@ import streamlit as st
 import mysql.connector
 from PIL import Image
 from io import BytesIO
+from dotenv import load_dotenv
 
-print(os.getenv("DB_PORT"))
-
+load_dotenv()
 db_connection = {
     "host": os.getenv("DB_HOST"),
     "port": int(os.getenv("DB_PORT")),

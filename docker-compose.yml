@@ -78,7 +78,7 @@ services:
             MYSQL_DATABASE: "${DB_NAME}"
             MYSQL_ALLOW_EMPTY_PASSWORD: "no"
         volumes:
-            - "$PWD/mysql/db:/var/lib/mysql"
+            - "$PWD/mysql/db:/var/lib/mysql:rw"
             - "$PWD/mysql/log:/var/log/mysql"
             - "$PWD/dump.sql:/docker-entrypoint-initdb.d/dump.sql"
         networks:

@@ -1,4 +1,3 @@
-
 local-ip='localhost'
 
 DB_HOST=PY-mysql
