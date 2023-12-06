@@ -1,13 +1,12 @@
 import os
-
 from dotenv import dotenv_values
 from flask import Flask, redirect, render_template
+from dotenv import load_dotenv
+
 app = Flask(__name__)
 
-# # For Home Pc
-config = dotenv_values(".env")
-ip = config.get("local-ip")
-# ip = os.getenv("local-ip")
+load_dotenv()
+ip = os.getenv("local-ip")
 
 
 # Render the homepage with buttons

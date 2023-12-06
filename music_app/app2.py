@@ -1,8 +1,6 @@
 import streamlit as st
 import mysql.connector
 import os
-from pydub import AudioSegment
-from pydub.playback import play
 
 # # Database connection details
 db_connection = {

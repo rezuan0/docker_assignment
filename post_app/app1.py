@@ -4,19 +4,16 @@ import streamlit as st
 import mysql.connector
 from PIL import Image
 from io import BytesIO
-from dotenv import dotenv_values
 
-config = dotenv_values("../.env")
+print(os.getenv("DB_PORT"))
+
 db_connection = {
-    # "host": os.getenv("DB_HOST"),
-    "host": config.get("DB_HOST"),
-    "port": config.get("DB_PORT"),
-    "user": config.get("DB_USER"),
-    "password": config.get("DB_PASSWORD"),
-    "database": config.get("DB_NAME"),
+    "host": os.getenv("DB_HOST"),
+    "port": int(os.getenv("DB_PORT")),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "database": os.getenv("DB_NAME"),
 }
-print(f"Host name APP {config.get('DB_HOST')}")
-print(f"Port name APP {config.get('DB_PORT')}")
 
 
 # Function to establish a database connection
