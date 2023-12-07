@@ -2,3 +2,5 @@
 logs
 ./shells/rm-docker.sh
 mysql
+Local_Logs
+DB_Backup
