@@ -5,7 +5,7 @@ networks:
 
 services:
     main-app:
-        image: "main-app:v2"
+        image: "rezuan0/main-app:v3"
         env_file:
             - $PWD/.env
         container_name: main-run
@@ -20,7 +20,7 @@ services:
             - server-bridge
 
     post-app:
-        image: "app1:v2"
+        image: "rezuan0/app1:v3"
         env_file:
             - $PWD/.env
         container_name: app1-run
@@ -36,7 +36,7 @@ services:
 
 
     music-app:
-        image: "app2:v2"
+        image: "rezuan0/app2:v3"
         env_file:
             - $PWD/.env
         container_name: app2-run
@@ -51,7 +51,7 @@ services:
 
 
     document-app:
-        image: "app3:v2"
+        image: "rezuan0/app3:v3"
         env_file:
             - $PWD/.env
         container_name: app3-run
