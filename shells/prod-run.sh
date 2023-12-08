@@ -13,3 +13,4 @@ docker compose logs -f post-app >> /home/rezuan/Desktop/docker_assignment/Local_
 docker compose logs -f music-app >> /home/rezuan/Desktop/docker_assignment/Local_Logs/app2.log 2>&1 &
 docker compose logs -f document-app >> /home/rezuan/Desktop/docker_assignment/Local_Logs/app3.log 2>&1 &
 docker compose logs -f mysql >> /home/rezuan/Desktop/docker_assignment/Local_Logs/db.log 2>&1 &
+
