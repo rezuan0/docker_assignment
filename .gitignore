@@ -1,7 +1,6 @@
 .env
-logs
-./shells/rm-docker.sh
+.idea
 mysql
 Local_Logs
 DB_Backup
-.idea
+

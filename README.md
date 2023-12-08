@@ -7,10 +7,10 @@
 3. Dockerize Application  
  3.1 Then I create Dockerfile for every services like fronend(main) and backend(app1,app2 &    app3).
  
- 4. Docekr Hot reloading for local dev  
-  
+4. Docekr Hot reloading for local dev  
+  4.1 
  
- 5. Use multistage build  
+5. Use multistage build  
   5.1 In every application both frondend and backend, i create Dockerfile which is multistage (for main.py)
   
 6. Separate  credentials for local and production dev  
@@ -33,5 +33,14 @@
   11.1 In shells directory there is a file called "package_install.sh", this shell script is ful-fill this requirement.
  
 12. Bonus  
+
+
+---To run the application in your local machine make sure you have mysql server and import the dump.sql on your mysql server with the crediential on it, as shows on local_dev file. Then run the local-run.sh script. Before run the script file make sure you change your ip on the local_env filr.---  
+
+---To run the application through the docker composer file, you just need to run the "prod-run.sh" script filr from shells directory.---  
+  
+  --For logs, you need to create a directory name with "Local_Logs" in your project root, then three logs files will on it and all the logs will generate on this files.  
+  
+
      
   
