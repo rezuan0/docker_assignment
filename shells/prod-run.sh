@@ -7,7 +7,6 @@ docker compose down
 
 docker compose up -d
 
-sleep 10
 
 docker compose logs -f main-app >> /home/rezuan/Desktop/docker_assignment/Local_Logs/main.log 2>&1 &
 docker compose logs -f post-app >> /home/rezuan/Desktop/docker_assignment/Local_Logs/app1.log 2>&1 &
