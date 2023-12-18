@@ -16,3 +16,4 @@ docker compose logs -f music-app >> app2.log 2>&1 &
 docker compose logs -f document-app >> app3.log 2>&1 &
 docker compose logs -f mysql >> db.log 2>&1 &
 
+
